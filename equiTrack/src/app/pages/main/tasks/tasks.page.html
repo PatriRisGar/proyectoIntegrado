@@ -1,0 +1,51 @@
+<app-header backButton="/home" title="Tareas"></app-header>
+
+<ion-content class="ion-padding">
+  <ion-grid>
+    <ion-row class="ion-padding">
+      <ion-col size="12">
+        <ion-item-divider color="primary" mode="ios">
+          <ion-label>
+            <h3>Tareas Asignadas</h3>
+          </ion-label>
+        </ion-item-divider>
+      </ion-col>
+      <ion-col size="12" size-md="4" size-lg="2" *ngFor="let task of tasks" class="ion-padding">
+        <ion-checkbox labelPlacement="end" mode="ios">{{task.name}}</ion-checkbox>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-padding ion-padding-vertical">
+      <ion-col size="12">
+        <ion-item-divider color="primary" mode="ios">
+          <ion-label>
+            <h3>Tareas Finalizadas</h3>
+          </ion-label>
+        </ion-item-divider>
+      </ion-col>
+      <ion-col size="12">
+        <ion-list>
+          <ion-item-sliding *ngFor="let task of tasks" class="ion-padding">
+            <ion-item>{{task.name}}</ion-item>
+            <ion-item-options side="end" class="ion-padding">
+              <ion-button color="danger" (click)="deleteTodo(task)">
+                <ion-icon name="trash"></ion-icon>
+              </ion-button>
+            </ion-item-options>
+            <ion-item-options side="start" class="ion-padding">
+              <ion-button color="primary" (click)="addUpdateTask(task)">
+                <ion-icon name="create"></ion-icon>
+              </ion-button>
+            </ion-item-options>
+          </ion-item-sliding>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <!-- Añadir tarea -->
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" class="ion-padding" *appShowForRoles="['admin', 'trainer']">
+    <ion-fab-button (click)="addUpdateTask()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

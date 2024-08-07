@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button *ngIf="backButton" [defaultHref]="backButton"></ion-back-button>
+      <ion-button *ngIf="modal" (click)="dismissModal()">
+        <ion-icon slot="start" name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+    <ion-title>
+      <strong>{{ title }}</strong>
+      <div class="equiTrack">EquiTrack</div>
+    </ion-title>
+
+    <ion-button *ngIf="!isLogged" (click)="goToTasks()" mode="ios" slot="end">
+      Mis tareas
+    </ion-button>
+    <ion-button *ngIf="!isLogged" (click)="logOut()" mode="ios" slot="end">
+      Cerrar Sesión
+    </ion-button>
+  </ion-toolbar>
+</ion-header>

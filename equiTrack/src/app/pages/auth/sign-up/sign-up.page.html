@@ -1,0 +1,99 @@
+<app-header title="Registrarse" backButton="/auth"></app-header>
+
+<ion-content>
+  <div class="d-flex-center">
+    <form [formGroup]="form" class="auth-form" (ngSubmit)="submit()">
+      <app-logo></app-logo>
+
+      <!-- nombre -->
+      <app-custom-input
+        icon="person-outline"
+        autocomplete="name"
+        [control]="form.controls.name"
+        type="text"
+        label="Nombre"
+      ></app-custom-input>
+      <div
+        class="validators"
+        *ngIf="form.controls.name.errors && form.controls.name.touched "
+      >
+        <div *ngIf="form.controls.name.errors?.['required']">
+          El correo es necesario
+        </div>
+        <div *ngIf="form.controls.name.errors?.['minlenght']">
+          El nombre debe tener al menos 2 caracteres
+        </div>
+      </div>
+
+      <!-- email -->
+      <app-custom-input
+        icon="mail-outline"
+        autocomplete="email"
+        [control]="form.controls.email"
+        type="email"
+        label="Correo"
+      ></app-custom-input>
+      <div
+        class="validators"
+        *ngIf="form.controls.email.errors && form.controls.email.touched "
+      >
+        <div *ngIf="form.controls.email.errors?.['required']">
+          El correo es necesario
+        </div>
+        <div *ngIf="form.controls.email.errors?.['email']">
+          El correo no es valido
+        </div>
+      </div>
+
+      <!-- contraseña -->
+      <app-custom-input
+        icon="lock-closed-outline"
+        [control]="form.controls.password"
+        type="password"
+        label="Contraseña"
+      ></app-custom-input>
+      <div
+        class="validators"
+        *ngIf="form.controls.password.errors && form.controls.password.touched "
+      >
+        <div *ngIf="form.controls.password.errors?.['required']">
+          La contraseña es necesaria
+        </div>
+      </div>
+
+      <!-- rol -->
+      <ion-item lines="none" mode="ios">
+        <ion-select
+          formControlName="rol"
+          interface="popover"
+          placeholder="Tipo de empleado"
+        >
+          <ion-select-option value="admin">Administrador</ion-select-option>
+          <ion-select-option value="trainer">Entrenador</ion-select-option>
+          <ion-select-option value="rider">Jinete</ion-select-option>
+          <ion-select-option value="groom">Mozo de Cuadra</ion-select-option>
+          <ion-select-option value="vet">Veterinario</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <div
+        class="validators"
+        *ngIf="form.controls.rol.errors && form.controls.rol.touched "
+      >
+        <div *ngIf="form.controls.rol.errors?.['required']">
+          El tipo de empleado es necesario
+        </div>
+      </div>
+
+      <ion-button
+        expand="block"
+        mode="ios"
+        class="submit"
+        type="submit"
+        [disabled]="form.invalid"
+      >
+        Registrarse
+        <ion-icon slot="end" name="person-add-outline"></ion-icon>
+      </ion-button>
+    </form>
+  </div>
+</ion-content>

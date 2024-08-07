@@ -1,0 +1,120 @@
+<app-header [title]="training ? 'Actualizar entrenamiento' : 'Añadir nuevo entrenamiento'" [modal]="true"
+  [isLogged]="true"></app-header>
+<ion-content>
+  <ion-grid fixed>
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <!-- Fecha -->
+      <ion-row class="ion-padding-vertical ion-padding">
+        <ion-col size="12"><ion-label>Fecha y hora del entrenamiento</ion-label></ion-col>
+      </ion-row>
+
+      <div class="divCalendar">
+        <ion-datetime [preferWheel]="true" formControlName="dateTraining"></ion-datetime>
+      </div>
+
+      <!-- Equipo -->
+      <ion-row class="ion-padding-vertical ion-padding">
+        <ion-col size="12">
+          <ion-label>Seleccione el equipo</ion-label>
+        </ion-col>
+        <ion-col size="12" size-md="4">
+          <ion-item lines="none" mode="ios">
+            <ion-select formControlName="horse" interface="popover" placeholder="Caballo">
+              <ion-select-option *ngFor="let horse of horses" [value]="horse">{{ horse.name }}</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <div class="validators" *ngIf="form.controls.horse.errors && form.controls.horse.touched ">
+            <div *ngIf="form.controls.horse.errors?.['required']">
+              Necesita un caballo
+            </div>
+          </div>
+        </ion-col>
+        <ion-col size="12" size-md="4">
+          <ion-item lines="none" mode="ios">
+            <ion-select formControlName="rider" interface="popover" placeholder="Jinete">
+              <ion-select-option *ngFor="let rider of riders" [value]="rider">{{ rider.name }}</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <div class="validators" *ngIf="form.controls.rider.errors && form.controls.rider.touched ">
+            <div *ngIf="form.controls.rider.errors?.['required']">
+              Necesita un jinete
+            </div>
+          </div>
+        </ion-col>
+        <ion-col size="12" size-md="4">
+          <ion-item lines="none" mode="ios">
+            <ion-select formControlName="groom" interface="popover" placeholder="Mozo de cuadra">
+              <ion-select-option *ngFor="let groom of grooms" [value]="groom">{{ groom.name }}</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <div class="validators" *ngIf="form.controls.groom.errors && form.controls.groom.touched ">
+            <div *ngIf="form.controls.groom.errors?.['required']">
+              Es necesario incluir un mozo de cuadra
+            </div>
+          </div>
+        </ion-col>
+      </ion-row>
+
+      <!-- Tipo de entrenamiento -->
+      <ion-row class="ion-padding-vertical ion-padding">
+        <ion-col size="12">
+          <ion-list lines="none" mode="ios">
+            <ion-label>Tipo de entrenamiento</ion-label>
+            <ion-radio-group formControlName="trainingType">
+              <ion-grid>
+                <ion-row>
+                  <ion-col size="12" size-md="3">
+                    <ion-item lines="none">
+                      <ion-radio slot="start" value="dressage"></ion-radio>
+                      <ion-label>Doma</ion-label>
+                    </ion-item>
+                  </ion-col>
+                  <ion-col size="12" size-md="3">
+                    <ion-item lines="none">
+                      <ion-radio slot="start" value="jump"></ion-radio>
+                      <ion-label>Salto</ion-label>
+                    </ion-item>
+                  </ion-col>
+                  <ion-col size="12" size-md="3">
+                    <ion-item lines="none">
+                      <ion-radio slot="start" value="cross"></ion-radio>
+                      <ion-label>Cross</ion-label>
+                    </ion-item>
+                  </ion-col>
+                  <ion-col size="12" size-md="3">
+                    <ion-item lines="none">
+                      <ion-radio slot="start" value="outing"></ion-radio>
+                      <ion-label>Paseo</ion-label>
+                    </ion-item>
+                  </ion-col>
+                  <ion-col size="12" size-md="4">
+                    <ion-item lines="none">
+                      <ion-radio slot="start" value="paddock"></ion-radio>
+                      <ion-label>Paddock</ion-label>
+                    </ion-item>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </ion-radio-group>
+          </ion-list>
+
+          <div class="validators" *ngIf="form.controls.trainingType.errors && form.controls.trainingType.touched">
+            <div *ngIf="form.controls.trainingType.errors?.['required']">
+              Campo obligatorio
+            </div>
+          </div>
+        </ion-col>
+      </ion-row>
+
+
+
+      <ion-row>
+        <ion-col class="ion-text-center">
+          <ion-button type="submit" mode="ios" class="ion-margin" [disabled]="form.invalid">
+            {{ training ? 'Actualizar entrenamiento' : 'Añadir nuevo entrenamiento' }}
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </form>
+  </ion-grid>
+</ion-content>

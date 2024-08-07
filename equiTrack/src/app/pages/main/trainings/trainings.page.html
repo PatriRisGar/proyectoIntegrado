@@ -1,0 +1,44 @@
+<app-header backButton="/home" title="Entrenamientos"></app-header>
+
+<ion-content class="ion-padding">
+
+  <div class="divCalendar">
+    <ion-datetime presentation="date" (ionChange)="onDateChange($event)"></ion-datetime>
+  </div>
+
+  <b>Fecha seleccionada: {{ selectedDate }}</b>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" class="ion-padding" *appShowForRoles="['admin', 'trainer']">
+    <ion-fab-button (click)="addUpdateTraining()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ion-grid class="ion-padding">
+
+    <ion-row class="header-row">
+      <ion-col size-md="1" size-lg="1" size-xl="1" size="4">Hora</ion-col>
+      <ion-col size-md="10" size-lg="10" size-xl="11" size="4" class="ion-text-wrap">Detalles</ion-col>
+    </ion-row>
+
+    <ion-row *ngFor="let training of trainings" class="ion-padding-vertical ion-align-items-center dataRow">
+      <ion-col size-md="1" size="12">{{ training.dateTraining | date:'HH:mm' }}</ion-col>
+      <ion-col size-md="8" size="12" class="ion-text-wrap">
+        <div>Tipo de entreno: {{ getTrainingTypeName(training.trainingType) }}</div>
+        <div>Caballo: {{ training.horse.name }}</div>
+        <div>Jinete: {{ training.rider.name }}</div>
+        <div>Mozo: {{ training.groom.name }}</div>
+        <div>Entrenador: {{ training.trainer.name }}</div>
+      </ion-col>
+      <ion-col size-md="3" size="12">
+        <ion-button fill="clear" color="danger" (click)="confirmDelete(training)"
+          *appShowForRoles="['admin', 'trainer']">
+          <ion-icon name="trash-outline"></ion-icon>
+        </ion-button>
+        <ion-button fill="clear" (click)="addUpdateTraining(training)" *appShowForRoles="['admin', 'trainer']">
+          <ion-icon name="create-outline"></ion-icon> Editar
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>

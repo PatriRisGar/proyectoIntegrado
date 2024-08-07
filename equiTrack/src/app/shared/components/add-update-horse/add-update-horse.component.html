@@ -1,0 +1,115 @@
+<app-header [title]="horse ? 'Actualizar caballo' : 'Añadir nuevo caballo'" [modal]="true"
+    [isLogged]="true"></app-header>
+
+<ion-content>
+    <form [formGroup]="form" class="ion-padding " (ngSubmit)="submit()">
+
+        <!-- imagen -->
+        <div class="ion-text-center">
+            <ion-avatar *ngIf="form.value.image">
+                <img [src]="form.value.image" />
+            </ion-avatar>
+            <ion-icon name="image-outline" *ngIf="!form.value.image" class="image"></ion-icon>
+            <br>
+            <ion-button (click)=" takeImage()" mode="ios" size="small" shape="round">
+                Imagen
+            </ion-button>
+
+            <div *ngIf="!form.value.image" class="validators">
+                Es necesaria la imagen para reconocer al caballo.
+            </div>
+
+        </div>
+
+        <!-- inputs -->
+        <app-custom-input autocomplete="Nombre" [control]="form.controls.name" type="text"
+            label="Nombre"></app-custom-input>
+        <div class="validators" *ngIf="form.controls.name.errors && form.controls.name.touched">
+            <div *ngIf="form.controls.name.errors?.['required']">
+                El nombre es necesario
+            </div>
+            <div *ngIf="form.controls.name.errors?.['minLength']">
+                El nombre es demasiado corto
+            </div>
+        </div>
+        <app-custom-input autocomplete="Raza" icono="mail-outline" [control]="form.controls.breed" type="text"
+            label="Raza"></app-custom-input>
+        <div class="validators" *ngIf="form.controls.breed.errors && form.controls.breed.touched">
+            <div *ngIf="form.controls.breed.errors?.['required']">
+                Es necesario especificar la raza
+            </div>
+            <div *ngIf="form.controls.breed.errors?.['minLength']">
+                Ninguna raza es menor de cuatro caracteres
+            </div>
+        </div>
+        <app-custom-input autocomplete="Capa" icono="mail-outline" [control]="form.controls.coat" type="text"
+            label="Capa"></app-custom-input>
+        <div class="validators" *ngIf="form.controls.coat.errors && form.controls.coat.touched">
+            <div *ngIf="form.controls.coat.errors?.['required']">
+                Es necesario indicar la capa
+            </div>
+            <div *ngIf="form.controls.coat.errors?.['minLength']">
+                El nombre de la capa es demasiado corto
+            </div>
+        </div>
+        <app-custom-input [control]="form.controls.dateBirth" type="date"
+            label="Fecha de nacimiento"></app-custom-input>
+        <div class="validators" *ngIf="
+    form.controls.dateBirth.errors &&
+    form.controls.dateBirth.touched
+    ">
+            <div *ngIf="form.controls.dateBirth.errors?.['required']">
+                Indique la fecha de nacimiento
+            </div>
+        </div>
+
+        <!-- Radios -->
+        <ion-list lines="none" mode="ios">
+            <ion-list-header>
+                <ion-label>Genero</ion-label>
+            </ion-list-header>
+            <ion-radio-group formControlName="gender">
+                <ion-item>
+                    <ion-radio slot="start" value="Masculino">Masculino</ion-radio>
+                    <ion-radio slot="start" value="Femenino">Femenino</ion-radio>
+                </ion-item>
+            </ion-radio-group>
+        </ion-list>
+
+        <div class="validators" *ngIf="
+    form.controls.gender.errors && form.controls.gender.touched
+    ">
+            <div *ngIf="form.controls.gender.errors?.['required']">
+                Campo obligatorio
+            </div>
+        </div>
+
+        <ion-list lines="none" mode="ios">
+            <ion-list-header>
+                <ion-label>Reproductor</ion-label>
+            </ion-list-header>
+            <ion-radio-group formControlName="breeding">
+                <ion-item>
+                    <ion-radio slot="start" value="Si">Si</ion-radio>
+                    <ion-radio slot="start" value="No">No</ion-radio>
+                </ion-item>
+            </ion-radio-group>
+        </ion-list>
+
+        <div class="validators" *ngIf="
+    form.controls.breeding.errors && form.controls.breeding.touched
+    ">
+            <div *ngIf="form.controls.breeding.errors?.['required']">
+                Campo obligatorio
+            </div>
+        </div>
+
+        <ion-row>
+            <ion-col class="ion-text-center">
+                <ion-button type="submit" mode="ios" class="ion-margin" [disabled]="form.invalid">
+                    {{ horse ? 'Actualizar caballo' : 'Añadir nuevo caballo' }}
+                </ion-button>
+            </ion-col>
+        </ion-row>
+    </form>
+</ion-content>

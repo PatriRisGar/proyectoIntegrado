@@ -1,0 +1,21 @@
+.gird{
+    padding: 3em;
+}
+
+.block {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease;
+}
+
+.block:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 10px 14px rgba(0, 0, 0, 0.1);
+    background-color: rgba(56, 128, 255, 0.8);
+    color: azure;
+    font-weight: bold;
+}

@@ -1,0 +1,22 @@
+.divCalendar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.header-row {
+    background-color: #3880ff;
+    color: #ffffff;
+    font-weight: bold;
+    padding: 0.2em;
+}
+
+.dataRow {
+    border-bottom: 1px solid #ccc; 
+}
+
+.dataRow:hover {
+    background-color: #3881ff1e;
+}
+

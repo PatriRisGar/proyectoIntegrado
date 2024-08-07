@@ -1,0 +1,67 @@
+<app-header backButton="/home" title="Empleados"></app-header>
+
+<ion-content>
+  <ion-grid fixed>
+    <ion-row>
+      <ion-col size="12" class="ion-padding ion-text-end">
+        <ion-button shape="round" mode="ios" fill="outline" class="ion-margin-top" routerLink="sign-up" *appShowForRoles="['admin']">
+          Registrar nuevo empleado
+          <ion-icon slot="end" name="person-add-outline"></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size="12" size-sm="6" size-md="4" size-lg="3">
+        <ion-item lines="none" mode="ios" class="ion-padding">
+          <ion-select
+            [(ngModel)]="selectedRole"
+            (ionChange)="filterUsers()"
+            interface="popover"
+            placeholder="Buscar"
+          >
+            <ion-select-option value="all">Todos</ion-select-option>
+            <ion-select-option value="admin">Administrador</ion-select-option>
+            <ion-select-option value="trainer">Entrenador</ion-select-option>
+            <ion-select-option value="rider">Jinete</ion-select-option>
+            <ion-select-option value="groom">Mozo de Cuadra</ion-select-option>
+            <ion-select-option value="vet">Veterinario</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-list lines="none">
+      <ion-item-divider color="light">
+        <ion-label>
+          <h3>Empleados</h3>
+        </ion-label>
+      </ion-item-divider>
+
+      <ion-item *ngFor="let user of filteredUsers" class="ion-padding-vertical">
+        <ion-avatar slot="start">
+          <img [src]="user.image || 'https://ionicframework.com/docs/img/demos/avatar.svg'" />
+          <ion-button (click)="takeImage()" mode="ios" *appShowForRoles="[user.uid]">
+            <ion-icon  name="create-outline"></ion-icon>
+          </ion-button>
+        </ion-avatar>        
+
+        <ion-label class="ion-padding-start">
+          <h2>{{ user.name }}
+            <ion-chip *ngIf="user.rol === 'admin'" color="tertiary">{{ user.isActive ? 'Administrador' : 'Exempleado' }} </ion-chip>
+            <ion-chip *ngIf="user.rol === 'trainer'" color="tertiary">{{ user.isActive ? 'Entrenador' : 'Exempleado' }} </ion-chip>
+            <ion-chip *ngIf="user.rol === 'rider'" color="tertiary">{{ user.isActive ? 'Jinete' : 'Exempleado' }}</ion-chip>
+            <ion-chip *ngIf="user.rol === 'vet'" color="tertiary">{{ user.isActive ? 'Veterinario' : 'Exempleado' }} </ion-chip>
+            <ion-chip *ngIf="user.rol === 'groom'" color="tertiary">{{ user.isActive ? 'Mozo de cuadra' : 'Exempleado' }} </ion-chip>
+          </h2>
+          <p>{{ user.email }}</p>
+        </ion-label>
+
+        <ion-button fill="clear" color="danger" slot="end" (click)="confirmDelete(user)" *appShowForRoles="['admin']">
+          <ion-icon name="trash-outline"></ion-icon>
+        </ion-button>
+      </ion-item>
+    </ion-list>
+
+  </ion-grid>
+</ion-content>
