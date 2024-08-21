@@ -6,26 +6,37 @@
       <ion-col size="12">
         <ion-item-divider color="primary" mode="ios">
           <ion-label>
-            <h3>Tareas Asignadas</h3>
+            <h2>Tareas Asignadas</h2>
           </ion-label>
         </ion-item-divider>
       </ion-col>
-      <ion-col size="12" size-md="4" size-lg="2" *ngFor="let task of tasks" class="ion-padding">
-        <ion-checkbox labelPlacement="end" mode="ios">{{task.name}}</ion-checkbox>
+      <ion-col size="12" size-md="4" *ngFor="let task of tasks" class="ion-padding">
+        <div *ngIf="task.status">
+          <ion-item lines="none">
+            <ion-checkbox slot="start" (ionChange)="checkboxClick(task)" mode="ios" labelPlacement="end">
+              <h2 class="task-name">{{ task.name }}</h2>
+              <p class="task-detail">{{ task.detail }}</p>
+            </ion-checkbox>
+          </ion-item>
+        </div>
       </ion-col>
     </ion-row>
     <ion-row class="ion-padding ion-padding-vertical">
       <ion-col size="12">
         <ion-item-divider color="primary" mode="ios">
           <ion-label>
-            <h3>Tareas Finalizadas</h3>
+            <h2>Tareas Finalizadas</h2>
           </ion-label>
         </ion-item-divider>
       </ion-col>
       <ion-col size="12">
         <ion-list>
           <ion-item-sliding *ngFor="let task of tasks" class="ion-padding">
-            <ion-item>{{task.name}}</ion-item>
+            <div *ngIf="!task.status">
+              <ion-item lines="none">
+                  <h2 class="task-name">{{ task.name }}</h2>
+              </ion-item>
+            </div>
             <ion-item-options side="end" class="ion-padding">
               <ion-button color="danger" (click)="deleteTodo(task)">
                 <ion-icon name="trash"></ion-icon>

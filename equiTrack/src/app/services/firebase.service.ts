@@ -44,6 +44,7 @@ export class FirebaseService {
   async addToFirebase(path: string, data: any) {
     return await addDoc(collection(getFirestore(), path), data);
   }
+
   // Recuperar info ddbb
   getData(path: string, collectionQuery?: any) {
     const ref = collection(getFirestore(), path);

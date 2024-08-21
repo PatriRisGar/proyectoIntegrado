@@ -18,6 +18,8 @@ export class AddUpdateTaskComponent implements OnInit {
   form = new FormGroup({
     key: new FormControl(''),
     name: new FormControl('', [Validators.required, Validators.minLength(2)]),
+    status: new FormControl(true),
+    detail: new FormControl(''),
   });
 
   ngOnInit() {
@@ -41,6 +43,8 @@ export class AddUpdateTaskComponent implements OnInit {
 
       const loading = await this.utilsSvc.loading();
       await loading.present();
+
+      delete this.form.value.key;
 
       this.firebaseSvc
         .addToFirebase(path, this.form.value)
@@ -77,6 +81,8 @@ export class AddUpdateTaskComponent implements OnInit {
       await loading.present();
 
       delete this.form.value.key;
+      
+      this.form.value.status = true;
 
       this.firebaseSvc
         .updateData(path, this.form.value)
@@ -102,7 +108,7 @@ export class AddUpdateTaskComponent implements OnInit {
           });
         }).finally(() => {
           loading.dismiss();
-        });;
+        });
     }
   }
 }

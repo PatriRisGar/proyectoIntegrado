@@ -81,4 +81,13 @@ export class TasksPage {
       });
   }
 
+  checkboxClick(task: ToDo) {
+    this.task = task;
+
+    let path = `/tasks/${this.task.key}`;
+
+    this.task.status = false;
+    this.firebaseSvc.updateData(path, this.task);
+  }
+
 }
